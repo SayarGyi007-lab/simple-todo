@@ -1,4 +1,4 @@
-import React, { useEffect, useState, type FormEvent } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createTask, deleteTask, getNote, updateTask } from '../services/note'
 import type { Note } from '../types/note'
 
