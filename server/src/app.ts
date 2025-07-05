@@ -3,6 +3,8 @@ import dotenv from "dotenv"
 import { connectDB } from "./db"
 import TodoRoutes from "./routes/todo"
 import cors from "cors"
+import UserRoutes from "./routes/user"
+import { errorHandler } from "./middleware/errorHandler"
 
 dotenv.config({
     path: ".env"
@@ -14,7 +16,9 @@ app.use(cors({
 }))
 app.use(json())
 
+app.use(UserRoutes)
 app.use(TodoRoutes)
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 4000
 

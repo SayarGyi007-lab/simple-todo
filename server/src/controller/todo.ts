@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { Todo } from "../model/todo";
+import { asyncHandler } from "../utils/asyncHandler";
 
-export const createTodo = async (req: Request, res: Response) => {
+export const createTodo = asyncHandler(async (req: Request, res: Response) => {
     try {
         const { title } = req.body
         const response = await Todo.create(
@@ -13,9 +14,9 @@ export const createTodo = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({ message: "Internal server Error" })
     }
-}
+})
 
-export const deleteTodo = async (req: Request, res: Response) => {
+export const deleteTodo = asyncHandler(async (req: Request, res: Response) => {
     try {
         const { title } = req.params
         if (!title) {
@@ -26,9 +27,9 @@ export const deleteTodo = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({ message: "Internal server Error" })
     }
-}
+})
 
-export const getAllTodo = async (req: Request, res: Response) => {
+export const getAllTodo = asyncHandler(async (req: Request, res: Response) => {
     try {
         const tasks = await Todo.find({})
         res.status(200).json({ tasks })
@@ -36,9 +37,9 @@ export const getAllTodo = async (req: Request, res: Response) => {
     } catch (error) {
         res.status(500).json({ message: "Internal server Error" })
     }
-}
+})
 
-export const getTaskById = async (req: Request, res: Response) => {
+export const getTaskById = asyncHandler(async (req: Request, res: Response) => {
     try {
         const { id } = req.params
         const task = await Todo.findById(id)
@@ -50,9 +51,9 @@ export const getTaskById = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal server Error" })
 
     }
-}
+})
 
-export const updateTask = async (req: Request, res: Response) => {
+export const updateTask = asyncHandler(async (req: Request, res: Response) => {
    
     const { title } = req.body
     const {id} = req.params
@@ -67,4 +68,4 @@ export const updateTask = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Internal server Error" })
 
     }
-}
+})
