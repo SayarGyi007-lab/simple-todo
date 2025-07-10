@@ -11,7 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateTask = exports.getTaskById = exports.getAllTodo = exports.deleteTodo = exports.createTodo = void 0;
 const todo_1 = require("../model/todo");
-const createTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const asyncHandler_1 = require("../utils/asyncHandler");
+exports.createTodo = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title } = req.body;
         const response = yield todo_1.Todo.create({
@@ -22,9 +23,8 @@ const createTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     catch (error) {
         res.status(500).json({ message: "Internal server Error" });
     }
-});
-exports.createTodo = createTodo;
-const deleteTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+exports.deleteTodo = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title } = req.params;
         if (!title) {
@@ -36,9 +36,8 @@ const deleteTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     catch (error) {
         res.status(500).json({ message: "Internal server Error" });
     }
-});
-exports.deleteTodo = deleteTodo;
-const getAllTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+exports.getAllTodo = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const tasks = yield todo_1.Todo.find({});
         res.status(200).json({ tasks });
@@ -46,9 +45,8 @@ const getAllTodo = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     catch (error) {
         res.status(500).json({ message: "Internal server Error" });
     }
-});
-exports.getAllTodo = getAllTodo;
-const getTaskById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+exports.getTaskById = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const task = yield todo_1.Todo.findById(id);
@@ -60,9 +58,8 @@ const getTaskById = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     catch (error) {
         res.status(500).json({ message: "Internal server Error" });
     }
-});
-exports.getTaskById = getTaskById;
-const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+exports.updateTask = (0, asyncHandler_1.asyncHandler)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { title } = req.body;
     const { id } = req.params;
     try {
@@ -72,5 +69,4 @@ const updateTask = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     catch (error) {
         res.status(500).json({ message: "Internal server Error" });
     }
-});
-exports.updateTask = updateTask;
+}));

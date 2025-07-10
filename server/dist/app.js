@@ -41,6 +41,9 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const db_1 = require("./db");
 const todo_1 = __importDefault(require("./routes/todo"));
 const cors_1 = __importDefault(require("cors"));
+const user_1 = __importDefault(require("./routes/user"));
+const errorHandler_1 = require("./middleware/errorHandler");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 dotenv_1.default.config({
     path: ".env"
 });
@@ -49,7 +52,10 @@ app.use((0, cors_1.default)({
     origin: process.env.CLIENT_URL
 }));
 app.use((0, express_1.json)());
+app.use((0, cookie_parser_1.default)());
+app.use(user_1.default);
 app.use(todo_1.default);
+app.use(errorHandler_1.errorHandler);
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
     (0, db_1.connectDB)();

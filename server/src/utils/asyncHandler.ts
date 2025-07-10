@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from "express";
+import { AuthRequest } from "../middleware/authMiddleware";
 
 export const asyncHandler = (
     ControlFn: (
-        req: Request,
+        req: Request | AuthRequest,
         res: Response,
-        next?: NextFunction
+        next: NextFunction
     ) => Promise<void>
-) => (req: Request,
+) => (req: Request | AuthRequest,
     res: Response,
     next: NextFunction
 ) => {

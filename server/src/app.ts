@@ -5,6 +5,7 @@ import TodoRoutes from "./routes/todo"
 import cors from "cors"
 import UserRoutes from "./routes/user"
 import { errorHandler } from "./middleware/errorHandler"
+import cookieParser from "cookie-parser"
 
 dotenv.config({
     path: ".env"
@@ -12,10 +13,11 @@ dotenv.config({
 
 const app = express()
 app.use(cors({
-    origin: process.env.CLIENT_URL
+    origin: process.env.CLIENT_URL,
+    credentials: true
 }))
 app.use(json())
-
+app.use(cookieParser())
 app.use(UserRoutes)
 app.use(TodoRoutes)
 app.use(errorHandler)

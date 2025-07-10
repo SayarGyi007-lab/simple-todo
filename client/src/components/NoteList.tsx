@@ -59,19 +59,19 @@ const NoteList = () => {
 
   return (
     <div>
-      <h2>Note List</h2>
+      <h2 className='text-xl font-bold py-4 mb-6'>Shares</h2>
       <ul>
         {notes.map((note,index)=>
-          <li key={index}>
-            {note.title}
-            <button type='button' onClick={()=>deleteNote(note.title)}>Delete</button>
-            <button type='button' onClick={()=>modeChangeHandler(note.title,note._id)}>Update</button>
+          <li key={index} className='flex items-center gap-2 mb-2'>
+            <p className=' font-semibold'>{note.title}</p>
+            <button type='button' onClick={()=>deleteNote(note.title)} className='text-red-600 underline font-medium'>Delete</button>
+            <button type='button' onClick={()=>modeChangeHandler(note.title,note._id)} className='underline font-medium'>Update</button>
           </li>
         )}
       </ul>
       <form onSubmit={taskChangeHandler} >
-        <input type='text' value={msg} onChange={(e)=>setMsg(e.target.value)}/>
-        <button>{editMode? "Update" : "Create"}</button>
+        <input type='text' value={msg} onChange={(e)=>setMsg(e.target.value)} className='border p-2 text-sm mr-2'/>
+        <button className='text-white bg-black py-2 px-4 rounded-md text-sm '>{editMode? "Update" : "Create"}</button>
       </form>
     </div>
   )
