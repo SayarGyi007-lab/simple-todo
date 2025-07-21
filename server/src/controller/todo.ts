@@ -1,13 +1,16 @@
 import { Request, Response } from "express";
 import { Todo } from "../model/todo";
 import { asyncHandler } from "../utils/asyncHandler";
+import { AuthRequest } from "../middleware/authMiddleware";
 
-export const createTodo = asyncHandler(async (req: Request, res: Response) => {
+export const createTodo = asyncHandler(async (req: AuthRequest, res: Response) => {
     try {
         const { title } = req.body
+        const userId = req.user?._id
         const response = await Todo.create(
             {
-                title
+                title,
+                userId
             }
         )
         res.status(201).json({ message: "New Todo sucessfully created", response })
@@ -17,16 +20,14 @@ export const createTodo = asyncHandler(async (req: Request, res: Response) => {
 })
 
 export const deleteTodo = asyncHandler(async (req: Request, res: Response) => {
-    try {
-        const { title } = req.params
-        if (!title) {
-            res.status(404).json({ message: "title is required" })
-        }
-        await Todo.findOneAndDelete({ title: title.toLowerCase() })
-        res.status(200).json({ message: `${title} is deleted` })
-    } catch (error) {
-        res.status(500).json({ message: "Internal server Error" })
-    }
+    const { id } = req.params;
+  try {
+    await Todo.findByIdAndDelete(id);
+    res.status(200).json({ message: "Todo has been deleted." });
+  } catch (error) {
+    console.log(error);
+    res.status(200).json({ message: "Something went wrong." });
+  }
 })
 
 export const getAllTodo = asyncHandler(async (req: Request, res: Response) => {

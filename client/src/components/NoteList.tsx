@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { createTask, deleteTask, getNote, updateTask } from '../services/note'
 import type { Note } from '../types/note'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../store'
+import { Link } from 'react-router-dom'
 
 const NoteList = () => {
   const [notes, setNote] = useState<Note[]>([])
@@ -8,6 +11,8 @@ const NoteList = () => {
   const [refresh, setRefresh] = useState(false)
   const [editMode, setEditMode] = useState(false)
   const [editModeId, setEditModeId] = useState("")
+
+  const userInfo = useSelector((state:RootState)=>state.auth.userInfo)
 
   const makeRefresh = ()=>{
     setRefresh(!refresh)
@@ -42,9 +47,9 @@ const NoteList = () => {
     }
   }
 
-  const deleteNote = async(title: string)=>{
+  const deleteNote = async(id: string)=>{
     try {
-      await deleteTask(title)
+      await deleteTask(id)
       makeRefresh()
     } catch (error) {
       throw new Error("Failed to delete notd")
@@ -64,15 +69,28 @@ const NoteList = () => {
         {notes.map((note,index)=>
           <li key={index} className='flex items-center gap-2 mb-2'>
             <p className=' font-semibold'>{note.title}</p>
-            <button type='button' onClick={()=>deleteNote(note.title)} className='text-red-600 underline font-medium'>Delete</button>
-            <button type='button' onClick={()=>modeChangeHandler(note.title,note._id)} className='underline font-medium'>Update</button>
+            {
+              note.userId === userInfo?._id && 
+              <>
+                <button type='button' onClick={()=>deleteNote(note.title)} className='text-red-600 underline font-medium'>Delete</button>
+                <button type='button' onClick={()=>modeChangeHandler(note.title,note._id)} className='underline font-medium'>Update</button>
+              </>
+            }
           </li>
         )}
       </ul>
-      <form onSubmit={taskChangeHandler} >
-        <input type='text' value={msg} onChange={(e)=>setMsg(e.target.value)} className='border p-2 text-sm mr-2'/>
-        <button className='text-white bg-black py-2 px-4 rounded-md text-sm '>{editMode? "Update" : "Create"}</button>
-      </form>
+      <>
+        {userInfo? (
+          <form onSubmit={taskChangeHandler} >
+          <input type='text' value={msg} onChange={(e)=>setMsg(e.target.value)} className='border p-2 text-sm mr-2'/>
+          <button className='text-white bg-black py-2 px-4 rounded-md text-sm '>{editMode? "Update" : "Create"}</button>
+        </form>
+        ): (
+          <p className='border-2 px-4 py-2 w-fit'>
+           Please <Link to={"/login"} className='font-bold underline'>Login</Link>
+          </p>
+        )}
+      </>
     </div>
   )
 }

@@ -10,6 +10,8 @@ if(import.meta.env.VITE_MODE==="production"){
 }
 console.log("api: ", API_URL);
 
+axios.defaults.withCredentials=true
+
 // export const getNote =  async (): Promise<Note[]>=>{
 //     const response = await fetch(`${API_URL}/get`)
 //     const data = await response.json()
@@ -34,7 +36,7 @@ export const getNote =  async (): Promise<Note[]>=>{
 // }
 
 export const createTask = async(title:string)=>{
-   await axios.post(`${API_URL}/create`, {title})
+   await axios.post(`${API_URL}/create`, {title},{withCredentials: true})
 }
 
 // export const deleteTask = async(title: string)=>{
@@ -42,8 +44,8 @@ export const createTask = async(title:string)=>{
 //         method: "DELETE"
 //     })
 // }
-export const deleteTask = async(title: string)=>{
-    await axios.delete(`${API_URL}/delete/${title}`)
+export const deleteTask = async(id: string)=>{
+    await axios.delete(`${API_URL}/delete/${id}`,{withCredentials:true})
 }
 
 // export const updateTask = async(id: string, title: string)=>{
@@ -57,5 +59,5 @@ export const deleteTask = async(title: string)=>{
 // }
 
 export const updateTask = async(id: string, title: string)=>{
-    await axios.put(`${API_URL}/update/${id}`,{title})
+    await axios.put(`${API_URL}/update/${id}`,{title},{withCredentials:true})
 }
