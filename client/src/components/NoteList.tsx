@@ -43,7 +43,9 @@ const NoteList = () => {
       setMsg("")
       makeRefresh()
     } catch (error) {
-      throw new Error("Failed to add notd")
+      console.error("Error creating/updating task:", error);
+
+      throw new Error("Failed to add note")
     }
   }
 
