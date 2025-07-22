@@ -74,7 +74,7 @@ const NoteList = () => {
             {
               note.userId === userInfo?._id && 
               <>
-                <button type='button' onClick={()=>deleteNote(note.title)} className='text-red-600 underline font-medium'>Delete</button>
+                <button type='button' onClick={()=>deleteNote(note._id)} className='text-red-600 underline font-medium'>Delete</button>
                 <button type='button' onClick={()=>modeChangeHandler(note.title,note._id)} className='underline font-medium'>Update</button>
               </>
             }
