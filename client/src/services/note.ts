@@ -10,6 +10,8 @@ if(import.meta.env.VITE_MODE==="production"){
 }
 console.log("api: ", API_URL);
 
+
+
 axios.defaults.withCredentials=true
 
 // export const getNote =  async (): Promise<Note[]>=>{
