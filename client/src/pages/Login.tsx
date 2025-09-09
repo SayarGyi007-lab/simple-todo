@@ -30,7 +30,7 @@ const Login = () => {
     const submint: SubmitHandler<FormInputs>=async (data)=>{
         try {
             const res = await login(data).unwrap()
-            dispatch(setUserInfo(res))
+            dispatch((setUserInfo)(res))
             reset()
             navigate("/")
         } catch (err: any) {

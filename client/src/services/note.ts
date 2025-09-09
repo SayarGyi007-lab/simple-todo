@@ -21,7 +21,7 @@ axios.defaults.withCredentials=true
 // }
 
 export const getNote =  async (): Promise<Note[]>=>{
-    const {data} = await axios.get(`${API_URL}/get`)
+    const {data} = await axios.get(`${API_URL}/get`,{ withCredentials: true })
     return data.tasks
 }
 
