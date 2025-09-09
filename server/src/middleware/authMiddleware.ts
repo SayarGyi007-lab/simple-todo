@@ -25,7 +25,7 @@ const protect = asyncHandler(async(req: AuthRequest, res: Response, next:NextFun
 
     if(!token){
         res.status(401)
-        throw new Error("Unauthorized")
+        throw new Error("Unauthorized, no token")
     }
    try {
      const decoded = jwt.verify(token, process.env.JWT_TOKEN!) as JwtPayload
