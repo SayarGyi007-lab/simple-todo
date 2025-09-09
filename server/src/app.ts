@@ -15,14 +15,14 @@ const whitelist = [
     'http://localhost:5173',
     'http://localhost:5174',
     process.env.CLIENT_URL
-  ].filter(Boolean); // removes undefined
+  ].filter(Boolean);
   
 
 const corsOptions = {
     origin: function (origin: any, callback: any) {
-        if (!origin) return callback(null, 'http://localhost:5174'); // default dev origin
+        if (!origin) return callback(null, 'http://localhost:5174'); 
         if (whitelist.includes(origin)) {
-            callback(null, origin); // MUST return the actual origin string
+            callback(null, origin); 
         } else {
             callback(new Error('Not allowed by CORS'));
         }

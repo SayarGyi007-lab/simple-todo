@@ -3,3 +3,7 @@
 .form{
     @apply border p-2 mb-2 rounded-md w-full
 }
+
+body{
+    background: linear-gradient(to bottom, #abcfe8, #f0f9ff);
+}
