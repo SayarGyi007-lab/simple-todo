@@ -58,7 +58,7 @@ const NoteList= () => {
     <div className="min-h-screen bg-gradient-to-b from-indigo-100 to-indigo-50 flex flex-col items-center p-6 rounded-4xl">
       <div className="w-full max-w-md">
         <h1 className="text-4xl font-extrabold text-center text-indigo-700 mb-8 drop-shadow-lg">
-          My Notes
+          Global Notes
         </h1>
 
         {userInfo ? (
